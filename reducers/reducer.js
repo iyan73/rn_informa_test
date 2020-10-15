@@ -6,16 +6,17 @@ const initState = {
 }
 
 export const reducer = (state = initState, action) => {
-    if(action.type == "ADD_DATA"){
+    if(action.type == "LOAD_DATA"){
         return {
             ...state,
-            data: action.payload
+            data: action.payload.data,
+            loading: action.payload.loading
         }
     }
     if(action.type == "CHANGE_LOADING"){
         return {
             ...state,
-            loading: action.payload
+            loading: action.payload.loading
         }
     }
     return state;

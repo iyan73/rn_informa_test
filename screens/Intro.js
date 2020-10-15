@@ -41,7 +41,7 @@ const Intro = ({ navigation }) => {
 
     return (
         <Container>
-            <Header />
+            {/* <Header /> */}
             <Content>
                 <Form>
                     <Item floatingLabel>
