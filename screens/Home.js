@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Alert } from 'react-native';
 import { Card, FAB } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 const Home = ({ navigation }) => {
     // const [data, setData] = useState([])
@@ -11,6 +13,11 @@ const Home = ({ navigation }) => {
     const { data, loading } = useSelector((state) => {
         return state;
     })
+
+    const logout = async () => {
+        await AsyncStorage.removeItem('INFORMA')
+        navigation.navigate("Intro")
+    }
 
     const fetchData = () => {
         dispatch({
@@ -33,7 +40,7 @@ const Home = ({ navigation }) => {
         })
         dispatch({
             type: "CHANGE_LOADING",
-            payload: { loading : false }
+            payload: { loading: false }
         })
     }
 
@@ -74,7 +81,7 @@ const Home = ({ navigation }) => {
                 onRefresh={() => fetchData()}
                 refreshing={loading} />
             <FAB
-                onPress={() => navigation.navigate("Create")}
+                onPress={() => logout()}
                 style={styles.fab}
                 small={false}
                 icon="plus"

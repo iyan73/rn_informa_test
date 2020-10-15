@@ -6,6 +6,7 @@ const initState = {
 }
 
 export const reducer = (state = initState, action) => {
+    // console.log("acc", action.payload)
     if(action.type == "LOAD_DATA"){
         return {
             ...state,

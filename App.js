@@ -21,7 +21,7 @@ function App() {
   return (
     <View style={styles.container}>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Intro"
           component={Intro}
           options={{
@@ -30,12 +30,13 @@ function App() {
             headerStyle: {
               backgroundColor: "#006aff"
             }
-          }} /> */}
+          }} />
         <Stack.Screen
           name="Home"
           component={Home}
           options={{
             title: "Home",
+            headerLeft: null,
             headerTintColor: "white",
             headerStyle: {
               backgroundColor: "#006aff"
