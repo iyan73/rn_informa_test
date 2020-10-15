@@ -84,7 +84,7 @@ const Home = ({ navigation }) => {
                 onPress={() => logout()}
                 style={styles.fab}
                 small={false}
-                icon="plus"
+                icon="close-circle-outline"
                 theme={{ colors: { accent: "#006aff" } }}
             />
         </View>
