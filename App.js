@@ -12,6 +12,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { reducer } from './reducers/reducer';
+import Intro from './screens/Intro';
 const store = createStore(reducer);
 
 const Stack = createStackNavigator();
@@ -20,36 +21,46 @@ function App() {
   return (
     <View style={styles.container}>
       <Stack.Navigator>
-        <Stack.Screen 
-          name="Home" 
-          component={Home} 
+        <Stack.Screen
+          name="Intro"
+          component={Intro}
           options={{
-            title:"Home",
-            headerTintColor:"white",
-            headerStyle:{
-              backgroundColor: "#006aff"
-            }
-          }}/>
-        <Stack.Screen 
-          name="Create" 
-          component={CreateEmployee}
-          options={{
-            title:"Create Employee Data",
-            headerTintColor:"white",
-            headerStyle:{
+            title: "Intro",
+            headerTintColor: "white",
+            headerStyle: {
               backgroundColor: "#006aff"
             }
           }} />
-        <Stack.Screen 
-          name="Profile" 
-          component={Profile} 
+        <Stack.Screen
+          name="Home"
+          component={Home}
           options={{
-            title:"Profile",
-            headerTintColor:"white",
-            headerStyle:{
+            title: "Home",
+            headerTintColor: "white",
+            headerStyle: {
               backgroundColor: "#006aff"
             }
-          }}/>
+          }} />
+        <Stack.Screen
+          name="Create"
+          component={CreateEmployee}
+          options={{
+            title: "Create Employee Data",
+            headerTintColor: "white",
+            headerStyle: {
+              backgroundColor: "#006aff"
+            }
+          }} />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            title: "Profile",
+            headerTintColor: "white",
+            headerStyle: {
+              backgroundColor: "#006aff"
+            }
+          }} />
       </Stack.Navigator>
       {/* <Text>React Native Developer 2020</Text> */}
       {/* <Home /> */}
@@ -60,11 +71,11 @@ function App() {
 }
 
 export default () => {
-  return(
+  return (
     <Provider store={store}>
-    <NavigationContainer>
-      <App />
-    </NavigationContainer>
+      <NavigationContainer>
+        <App />
+      </NavigationContainer>
     </Provider>
   )
 }
