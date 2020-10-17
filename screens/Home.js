@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const Home = ({ navigation }) => {
     // const [data, setData] = useState([])
-    // const [loading, setLoading] = useState(true)
+    const [viewdata, setViewData] = useState('grid')
 
     const dispatch = useDispatch()
     const { data, loading } = useSelector((state) => {
@@ -73,6 +73,7 @@ const Home = ({ navigation }) => {
                 <ActivityIndicator size="large" color="#0000ff" />
                 : */}
             <FlatList
+                numColumns={viewdata == 'grid' ? 2 : 1}
                 data={data}
                 renderItem={({ item }) => {
                     return renderList(item)
@@ -85,6 +86,22 @@ const Home = ({ navigation }) => {
                 style={styles.fab}
                 small={false}
                 icon="close-circle-outline"
+                theme={{ colors: { accent: "#006aff" } }}
+            />
+
+            <FAB
+                onPress={() => setViewData('grid')}
+                style={styles.fab}
+                small={false}
+                icon="add"
+                theme={{ colors: { accent: "#006aff" } }}
+            />
+
+            <FAB
+                onPress={() => setViewData('list')}
+                style={styles.fab}
+                small={false}
+                icon="delete"
                 theme={{ colors: { accent: "#006aff" } }}
             />
         </View>
