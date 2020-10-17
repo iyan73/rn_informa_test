@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Alert } from 'react-native';
-import { Card, FAB } from 'react-native-paper';
+import { Card, FAB, Button } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -15,7 +15,7 @@ const Home = ({ navigation }) => {
     })
 
     const logout = async () => {
-        await AsyncStorage.removeItem('INFORMA')
+        await AsyncStorage.clear()
         navigation.navigate("Intro")
     }
 
@@ -52,15 +52,23 @@ const Home = ({ navigation }) => {
         return (
             <Card
                 style={styles.mycard}
-                onPress={() => navigation.navigate("Profile", { item })}>
+                onPress={() => navigation.navigate("Detail", { item })}>
                 <View style={styles.cardView}>
                     <Image
                         style={{ width: 60, height: 60, borderRadius: 30 }}
                         source={{ uri: imageURL }}
                     />
                     <View style={{ marginLeft: 10 }}>
-                        <Text style={styles.text}>{item.name}</Text>
-                        <Text style={styles.text}>{item.place}</Text>
+                        <Text>Event Name : {item.name}</Text>
+                        {viewdata == 'grid'
+                            ?
+                            null
+                            :
+                            <View>
+                                <Text>Place : {item.place}</Text>
+                                <Text>Description : {item.description}</Text>
+                            </View>
+                        }
                     </View>
                 </View>
             </Card>
@@ -72,7 +80,17 @@ const Home = ({ navigation }) => {
             {/* {loading ?
                 <ActivityIndicator size="large" color="#0000ff" />
                 : */}
+            <View style={{ flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
+                <Button mode="contained" onPress={() => setViewData('grid')}>
+                    <Text>Grid</Text>
+                </Button>
+                <Button mode="contained" onPress={() => setViewData('list')}>
+                    <Text>List</Text>
+                </Button>
+            </View>
+
             <FlatList
+                key={viewdata == 'grid' ? 1 : 0}
                 numColumns={viewdata == 'grid' ? 2 : 1}
                 data={data}
                 renderItem={({ item }) => {
@@ -89,7 +107,7 @@ const Home = ({ navigation }) => {
                 theme={{ colors: { accent: "#006aff" } }}
             />
 
-            <FAB
+            {/* <FAB
                 onPress={() => setViewData('grid')}
                 style={styles.fab}
                 small={false}
@@ -103,18 +121,20 @@ const Home = ({ navigation }) => {
                 small={false}
                 icon="delete"
                 theme={{ colors: { accent: "#006aff" } }}
-            />
+            /> */}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     mycard: {
-        margin: 5
+        margin: 5,
+        justifyContent: 'space-between'
     },
     cardView: {
-        flexDirection: "row",
-        padding: 6
+        // flexDirection: "row",
+        padding: 6,
+        width: 190
     },
     text: {
         fontSize: 15

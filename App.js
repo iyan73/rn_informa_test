@@ -13,6 +13,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { reducer } from './reducers/reducer';
 import Intro from './screens/Intro';
+import Auth from './screens/Auth';
+import Detail from './screens/Detail';
 const store = createStore(reducer);
 
 const Stack = createStackNavigator();
@@ -22,10 +24,19 @@ function App() {
     <View style={styles.container}>
       <Stack.Navigator>
         <Stack.Screen
+          name="Auth"
+          component={Auth}
+          options={{
+            title: "Auth",
+            headerLeft: null,
+            headerTintColor: "white"
+          }} />
+        <Stack.Screen
           name="Intro"
           component={Intro}
           options={{
             title: "Intro",
+            headerLeft: null,
             headerTintColor: "white",
             headerStyle: {
               backgroundColor: "#006aff"
@@ -43,10 +54,10 @@ function App() {
             }
           }} />
         <Stack.Screen
-          name="Create"
-          component={CreateEmployee}
+          name="Detail"
+          component={Detail}
           options={{
-            title: "Create Employee Data",
+            title: "Detail Event",
             headerTintColor: "white",
             headerStyle: {
               backgroundColor: "#006aff"

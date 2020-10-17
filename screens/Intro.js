@@ -16,11 +16,12 @@ const Intro = ({ navigation }) => {
     const simpanData = async () => {
         console.log("klik")
         try {
-             await AsyncStorage.setItem('INFORMA',"jossss");
+            await AsyncStorage.setItem('INFORMA', "jossss");
             // console.log(value);
             navigation.navigate("Home")
         } catch (error) {
             // Error saving data
+            console.log("error", error)
         }
     }
 
@@ -62,8 +63,17 @@ const Intro = ({ navigation }) => {
 
     }
 
-    useEffect(() => {
-        fetchData()
+    useEffect( () => {
+        // fetchData()
+        // const validateUserLogin = async () => {
+        //     const isLoggin = await AsyncStorage.getItem('INFORMA')
+        //     if (isLoggin) {
+        //         navigation.navigate("Home")
+        //     }
+        // }
+
+        // validateUserLogin()
+        // return function clearence(){}
     }, [])
 
     return (
