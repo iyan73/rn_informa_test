@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Alert } from 'react-native';
-import { Card, FAB } from 'react-native-paper';
-import { useSelector, useDispatch } from 'react-redux';
-import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const Auth = ({ navigation }) => {
@@ -19,7 +15,7 @@ const Auth = ({ navigation }) => {
         }
 
         validateUserLogin()
-        return function clearence(){}
+        // return function clearence(){}
     }, [])
 
     return (
