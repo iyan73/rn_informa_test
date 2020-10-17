@@ -24,16 +24,16 @@ const Home = ({ navigation }) => {
             type: "LOAD_DATA",
             payload: {
                 data: [
-                    { id: '1', name: "Metallica Concert", place: "Palace Grounds", description: "Paid", picture: "https://www.wowkeren.com/images/news/00038697.jpg" },
-                    { id: '2', name: "Saree Exhibition ", place: "Malleswaram Grounds", description: "Free", picture: "" },
-                    { id: '3', name: "Wine tasting event ", place: "Links Brewery", description: "Paid", picture: "" },
-                    { id: '4', name: "Startups Meet ", place: "Kanteerava Indoor Stadium", description: "Paid", picture: "" },
-                    { id: '5', name: "Summer Noon Party ", place: "Kumara Park", description: "Paid", picture: "" },
-                    { id: '6', name: "Rock and Roll nights ", place: "Sarjapur Road", description: "Paid", picture: "" },
-                    { id: '7', name: "Barbecue Fridays ", place: "Whitefield", description: "Paid", picture: "" },
-                    { id: '8', name: "Summer workshop ", place: "Indiranagar", description: "Free", picture: "" },
-                    { id: '9', name: "Impressions & Expressions ", place: "MG Road", description: "Free", picture: "" },
-                    { id: '10', name: "Italian carnival", place: "Electronic City", description: "Free", picture: "" },
+                    { id: '1', name: "Metallica Concert", place: "Palace Grounds", description: "Paid", picture: "https://www.wowkeren.com/images/news/00038697.jpg", price:"150.000" },
+                    { id: '2', name: "Saree Exhibition ", place: "Malleswaram Grounds", description: "Free", picture: "", price:"-" },
+                    { id: '3', name: "Wine tasting event ", place: "Links Brewery", description: "Paid", picture: "", price:"250.000" },
+                    { id: '4', name: "Startups Meet ", place: "Kanteerava Indoor Stadium", description: "Paid", picture: "", price:"300.000" },
+                    { id: '5', name: "Summer Noon Party ", place: "Kumara Park", description: "Paid", picture: "", price:"500.000" },
+                    { id: '6', name: "Rock and Roll nights ", place: "Sarjapur Road", description: "Paid", picture: "", price:"750.000" },
+                    { id: '7', name: "Barbecue Fridays ", place: "Whitefield", description: "Paid", picture: "", price:"200.000" },
+                    { id: '8', name: "Summer workshop ", place: "Indiranagar", description: "Free", picture: "", price:"-" },
+                    { id: '9', name: "Impressions & Expressions ", place: "MG Road", description: "Free", picture: "", price:"-" },
+                    { id: '10', name: "Italian carnival", place: "Electronic City", description: "Free", picture: "", price:"-" },
                 ],
                 loading: false
             }

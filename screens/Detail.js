@@ -45,7 +45,7 @@ const Detail = (props) => {
                 style={styles.myCard}>
                     <View style={styles.cardContent}>
                         <MaterialIcons name="attach-money" size={32} color="#006aff" />
-                        <Text style={styles.myText}>{item.description}</Text>
+                        <Text style={styles.myText}>{item.price}</Text>
                     </View>
             </Card>
             {/* <View style={{flexDirection:"row", justifyContent:"space-around", padding: 10}}>
