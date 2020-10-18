@@ -72,8 +72,43 @@ const Detail = (props) => {
                     )
                 }
             }
-            setDisabledButton(false)
+            setDisabledButton(true)
             props.navigation.navigate("Track")
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+
+    const removeFromTracking = async () => {
+        try {
+            const tracking = await AsyncStorage.getItem('data_tracking')
+            // console.log("data_tracking", JSON.parse(tracking))
+            let dataToSave = [item]
+            if (tracking) {
+                const newDataToSave = JSON.parse(tracking).filter((x) => x.id !== item.id)
+                .map((filterData) => {
+                    return filterData;
+                })
+                const save = await AsyncStorage.setItem('data_tracking', JSON.stringify(newDataToSave));
+                if (save) {
+                    dispatch({
+                        type: "LOAD_DATA_TRACKING",
+                        payload: {
+                            data: newDataToSave,
+                            loading: false
+                        }
+                    })
+                    Alert.alert(
+                        "Tracking Successfully",
+                        [
+                            { text: "OK", onPress: () => props.navigation.navigate("Home") }
+                        ],
+                        { cancelable: false }
+                    )
+                }
+            }
+            setDisabledButton(false)
+            props.navigation.navigate("Home")
         } catch (error) {
             console.log("error", error)
         }
@@ -122,16 +157,15 @@ const Detail = (props) => {
             <TouchableOpacity
                 onPress={() => trackData()}
                 disabled={disabledButton}
-                style={{
-                    padding: 10,
-                    backgroundColor: '#006aff',
-                    margin: 10,
-                    justifyContent: 'center',
-                    alignItems: "center",
-                    borderRadius: 5
-                }}>
+                style={disabledButton ? styles.disbalebutton : styles.enablebutton}>
                 <Text style={{ color: "white" }}>{disabledButton ? 'You Have Tracked' : 'Track Event'}</Text>
             </TouchableOpacity>
+            {disabledButton ?
+                <TouchableOpacity
+                    onPress={() => removeFromTracking()}
+                    style={styles.removebutton}>
+                    <Text style={{ color: "white" }}>Remove From Tracking</Text>
+                </TouchableOpacity> : null}
         </View>
     )
 }
@@ -157,6 +191,30 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginTop: 3,
         marginLeft: 3
+    },
+    enablebutton: {
+        padding: 10,
+        backgroundColor: '#006aff',
+        margin: 10,
+        justifyContent: 'center',
+        alignItems: "center",
+        borderRadius: 5
+    },
+    disbalebutton: {
+        padding: 10,
+        backgroundColor: 'grey',
+        margin: 10,
+        justifyContent: 'center',
+        alignItems: "center",
+        borderRadius: 5
+    },
+    removebutton: {
+        padding: 10,
+        backgroundColor: 'red',
+        margin: 10,
+        justifyContent: 'center',
+        alignItems: "center",
+        borderRadius: 5
     }
 })
 
