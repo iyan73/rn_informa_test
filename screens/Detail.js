@@ -11,9 +11,13 @@ const Detail = (props) => {
     const trackData = async () => {
         console.log("trackData")
         try {
-            await AsyncStorage.setItem('data_tracking', item.id);
             const tracking = await AsyncStorage.getItem('data_tracking')
-            console.log("data_tracking", JSON.parse(tracking))
+            // console.log("data_tracking", JSON.parse(tracking))
+            if(tracking){
+                await AsyncStorage.mergeItem('data_tracking', JSON.stringify({id: item.id}));
+            }else{
+                await AsyncStorage.setItem('data_tracking', JSON.stringify({id: item.id}));
+            }           
             // navigation.navigate("Home")
         } catch (error) {
             console.log("error", error)
