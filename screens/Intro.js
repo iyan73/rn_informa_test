@@ -11,8 +11,8 @@ const Intro = ({navigation}) => {
 
     const simpanData = async () => {
         try {
-            await AsyncStorage .setItem('INFORMA', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZ3VsYXJAZ21haWwuY29tIiwidXNlcklkIjoiNGMyNzkyMDAtNDVkZS00ZTY5LTg5MTItMzAxMjY2N2JjMzlkIiwiaWF0IjoxNjAzMDMwNjI2LCJleHAiOjE2MDMwMzQyMjZ9.3mIdtfcbIRLDsqCBd9Rd8CKESpdCsQBKye_AW74mpqs");
-            await AsyncStorage .setItem('MyProfile', name);
+            await AsyncStorage.setItem('INFORMA', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZ3VsYXJAZ21haWwuY29tIiwidXNlcklkIjoiNGMyNzkyMDAtNDVkZS00ZTY5LTg5MTItMzAxMjY2N2JjMzlkIiwiaWF0IjoxNjAzMDMwNjI2LCJleHAiOjE2MDMwMzQyMjZ9.3mIdtfcbIRLDsqCBd9Rd8CKESpdCsQBKye_AW74mpqs");
+            await AsyncStorage.setItem('MyProfile', name);
             // console.log("name", name);
             navigation.navigate("Home")
         } catch (error) {
