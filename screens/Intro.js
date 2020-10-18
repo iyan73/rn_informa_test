@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
 import { Card, FAB } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
@@ -65,14 +65,16 @@ const Intro = ({ navigation }) => {
 
     useEffect( () => {
         // fetchData()
-        // const validateUserLogin = async () => {
-        //     const isLoggin = await AsyncStorage.getItem('INFORMA')
-        //     if (isLoggin) {
-        //         navigation.navigate("Home")
-        //     }
-        // }
+        const validateUserLogin = async () => {
+            const isLoggin = await AsyncStorage.getItem('INFORMA')
+            if (isLoggin) {
+                navigation.navigate("Home")
+            }else{
+                navigation.navigate("Intro")
+            }
+        }
 
-        // validateUserLogin()
+        validateUserLogin()
         // return function clearence(){}
     }, [])
 
@@ -81,7 +83,7 @@ const Intro = ({ navigation }) => {
             {/* <Header /> */}
             <LinearGradient
                 colors={["#0033ff", "#6bc1ff"]}
-                style={{ height: "20%" }}
+                style={{ height: "25%" }}
             />
             <Content>
                 <Form>
@@ -89,15 +91,20 @@ const Intro = ({ navigation }) => {
                         <Label>Input Your Name</Label>
                         <Input />
                     </Item>
-                    <Button block info onPress={() => simpanData()}>
-                        <Text>Submit</Text>
-                    </Button>
-                    {/* <Button style={styles.inputStyle} icon={"upload"} mode="contained"
-                        onPress={() => setModal(true)}
-                        theme={theme}>
-                        <Text>Submit</Text>
-                    </Button> */}
                 </Form>
+
+                <TouchableOpacity
+                    onPress={() => simpanData()}
+                    style={{
+                    padding:10,
+                    backgroundColor: '#006aff',
+                    margin:10,
+                    justifyContent: 'center',
+                    alignItems: "center",
+                    borderRadius: 5
+                }}>
+                    <Text style={{color: "white"}}>Submit</Text>
+                </TouchableOpacity>
 
             </Content>
         </Container>

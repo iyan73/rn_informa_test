@@ -23,14 +23,14 @@ function App() {
   return (
     <View style={styles.container}>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Auth"
           component={Auth}
           options={{
             title: "Auth",
             headerLeft: null,
             headerTintColor: "white"
-          }} />
+          }} /> */}
         <Stack.Screen
           name="Intro"
           component={Intro}
@@ -81,6 +81,12 @@ function App() {
     </View>
   );
 }
+
+// const AppNavigator = createStackNavigator({
+//   Home: {
+//     screen : Home
+//   }
+// })
 
 export default () => {
   return (
