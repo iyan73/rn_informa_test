@@ -5,7 +5,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
 const Detail = (props) => {
-    const { item } = props.route.params
+    console.log("props", props)
+    const { item } = props.navigation.state.params
     
     return(
         <View style={styles.root}>
