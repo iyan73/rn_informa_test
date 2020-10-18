@@ -3,12 +3,13 @@ import { StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Alert } fro
 import { Card, FAB, ToggleButton } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
 
 const Home = ({ navigation }) => {
     // const [data, setData] = useState([])
     const [viewdata, setViewData] = useState('grid')
+    const [myProfile, setMyProfile] = useState('')
 
     const dispatch = useDispatch()
     const { data, loading } = useSelector((state) => {
@@ -24,7 +25,9 @@ const Home = ({ navigation }) => {
         navigation.navigate("Track")
     }
 
-    const fetchData = () => {
+    const fetchData = async () => {
+        const myProfile = await AsyncStorage.getItem('MyProfile')
+        setMyProfile(myProfile)
         dispatch({
             type: "LOAD_DATA",
             payload: {
@@ -84,40 +87,48 @@ const Home = ({ navigation }) => {
         <GestureRecognizer
             onSwipeLeft={() => onSwipeLeft()}
             style={{
-            flex: 1
+                flex: 1
             }}
         >
-        <View style={{ flex: 1 }}>
-            {/* {loading ?
+            <View style={{ flex: 1 }}>
+                {/* {loading ?
                 <ActivityIndicator size="large" color="#0000ff" />
                 : */}
-            <View style={{ flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
-                <ToggleButton.Row onValueChange={value => setViewData(value)} value={viewdata}>
-                    <ToggleButton color="red" icon="view-grid" value="grid" />
-                    <ToggleButton color="red" icon="view-list" value="list" />
-                </ToggleButton.Row>
+                <View style={{ flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
+                    <ToggleButton.Row onValueChange={value => setViewData(value)} value={viewdata}>
+                        <ToggleButton color="red" icon="view-grid" value="grid" />
+                        <ToggleButton color="red" icon="view-list" value="list" />
+                    </ToggleButton.Row>
+                </View>
+
+                <Text style={{
+                    padding: 15,
+                    alignContent: "center",
+                    fontSize: 15,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    color: "#006aff"
+                }}> Hi {myProfile}, have A Nice Day</Text>
+
+
+                <FlatList
+                    key={viewdata == 'grid' ? 1 : 0}
+                    numColumns={viewdata == 'grid' ? 2 : 1}
+                    data={data}
+                    renderItem={({ item }) => {
+                        return renderList(item)
+                    }}
+                    keyExtractor={item => item.id}
+                    onRefresh={() => fetchData()}
+                    refreshing={loading} />
+                <FAB
+                    onPress={() => logout()}
+                    style={styles.fab}
+                    small={false}
+                    icon="logout"
+                    theme={{ colors: { accent: "#006aff" } }}
+                />
             </View>
-
-
-
-            <FlatList
-                key={viewdata == 'grid' ? 1 : 0}
-                numColumns={viewdata == 'grid' ? 2 : 1}
-                data={data}
-                renderItem={({ item }) => {
-                    return renderList(item)
-                }}
-                keyExtractor={item => item.id}
-                onRefresh={() => fetchData()}
-                refreshing={loading} />
-            <FAB
-                onPress={() => logout()}
-                style={styles.fab}
-                small={false}
-                icon="logout"
-                theme={{ colors: { accent: "#006aff" } }}
-            />
-        </View>
         </GestureRecognizer>
     )
 }

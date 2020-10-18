@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Container, Content, Form, Item, Input, Label } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -50,14 +50,8 @@ const Intro = ({navigation}) => {
 
                 <TouchableOpacity
                     onPress={() => simpanData()}
-                    style={{
-                    padding:10,
-                    backgroundColor: '#006aff',
-                    margin:10,
-                    justifyContent: 'center',
-                    alignItems: "center",
-                    borderRadius: 5
-                }}>
+                    disabled={name === ''}
+                    style={name === '' ? styles.disbalebutton : styles.enablebutton}>
                     <Text style={{color: "white"}}>Submit</Text>
                 </TouchableOpacity>
 
@@ -65,6 +59,25 @@ const Intro = ({navigation}) => {
         </Container>
     )
 }
+
+const styles = StyleSheet.create({
+    enablebutton: {
+        padding: 10,
+        backgroundColor: '#006aff',
+        margin: 10,
+        justifyContent: 'center',
+        alignItems: "center",
+        borderRadius: 5
+    },
+    disbalebutton: {
+        padding: 10,
+        backgroundColor: 'grey',
+        margin: 10,
+        justifyContent: 'center',
+        alignItems: "center",
+        borderRadius: 5
+    }
+})
 
 
 
