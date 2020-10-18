@@ -1,24 +1,79 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { Card } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Detail = (props) => {
     const { item } = props.navigation.state.params
+    const dispatch = useDispatch()
+    const { dataTracking } = useSelector((state) => {
+        return state;
+    })
+    const [disabledButton, setDisabledButton] = useState(false)
+    const cekdata = async () => {
+        dataTracking.filter((x) => x.id === item.id)
+            .map((filterData) => {
+                // console.log("cekdata",filterData)
+                setDisabledButton(true)
+                return filterData;
+            })
+    }
+
+    useEffect(() => {
+        if (dataTracking !== null) {
+            cekdata()
+        }
+    }, [])
+
 
     const trackData = async () => {
-        console.log("trackData")
         try {
             const tracking = await AsyncStorage.getItem('data_tracking')
             // console.log("data_tracking", JSON.parse(tracking))
-            if(tracking){
-                await AsyncStorage.mergeItem('data_tracking', JSON.stringify({id: item.id}));
-            }else{
-                await AsyncStorage.setItem('data_tracking', JSON.stringify({id: item.id}));
-            }           
-            // navigation.navigate("Home")
+            let dataToSave = [item]
+            if (tracking) {
+                let newDataToSave = JSON.parse(tracking).concat(dataToSave);
+                const save = await AsyncStorage.setItem('data_tracking', JSON.stringify(newDataToSave));
+                if (save) {
+                    dispatch({
+                        type: "LOAD_DATA_TRACKING",
+                        payload: {
+                            data: newDataToSave,
+                            loading: false
+                        }
+                    })
+                    Alert.alert(
+                        "Tracking Successfully",
+                        [
+                            { text: "OK", onPress: () => props.navigation.navigate("Track") }
+                        ],
+                        { cancelable: false }
+                    )
+                }
+            } else {
+                const save = await AsyncStorage.setItem('data_tracking', JSON.stringify(dataToSave));
+                if (save) {
+                    dispatch({
+                        type: "LOAD_DATA_TRACKING",
+                        payload: {
+                            data: dataToSave,
+                            loading: false
+                        }
+                    })
+                    Alert.alert(
+                        "Tracking Successfully",
+                        [
+                            { text: "OK", onPress: () => props.navigation.navigate("Track") }
+                        ],
+                        { cancelable: false }
+                    )
+                }
+            }
+            setDisabledButton(false)
+            props.navigation.navigate("Track")
         } catch (error) {
             console.log("error", error)
         }
@@ -66,6 +121,7 @@ const Detail = (props) => {
 
             <TouchableOpacity
                 onPress={() => trackData()}
+                disabled={disabledButton}
                 style={{
                     padding: 10,
                     backgroundColor: '#006aff',
@@ -74,7 +130,7 @@ const Detail = (props) => {
                     alignItems: "center",
                     borderRadius: 5
                 }}>
-                <Text style={{ color: "white" }}>Track Event</Text>
+                <Text style={{ color: "white" }}>{disabledButton ? 'You Have Tracked' : 'Track Event'}</Text>
             </TouchableOpacity>
         </View>
     )

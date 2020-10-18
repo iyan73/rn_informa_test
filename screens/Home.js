@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Alert } fro
 import { Card, FAB, ToggleButton } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 
 const Home = ({ navigation }) => {
@@ -17,6 +18,10 @@ const Home = ({ navigation }) => {
     const logout = async () => {
         await AsyncStorage.clear()
         navigation.navigate("Intro")
+    }
+
+    const onSwipeLeft = () => {
+        navigation.navigate("Track")
     }
 
     const fetchData = () => {
@@ -76,6 +81,12 @@ const Home = ({ navigation }) => {
 
     })
     return (
+        <GestureRecognizer
+            onSwipeLeft={() => onSwipeLeft()}
+            style={{
+            flex: 1
+            }}
+        >
         <View style={{ flex: 1 }}>
             {/* {loading ?
                 <ActivityIndicator size="large" color="#0000ff" />
@@ -107,6 +118,7 @@ const Home = ({ navigation }) => {
                 theme={{ colors: { accent: "#006aff" } }}
             />
         </View>
+        </GestureRecognizer>
     )
 }
 
