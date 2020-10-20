@@ -24,8 +24,7 @@
     },
     "android": {
       "package": "com.appevent.appevent",
-      "versionCode": 1,
-      "enableDangerousExperimentalLeanBuilds" : true
+      "versionCode": 1
     }
   }
 }
